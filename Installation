@@ -1,0 +1,37 @@
+## 🚀 Installation
+
+Follow these steps to install the extension locally:
+
+1. Download or clone this repository.
+2. If you downloaded the project as a ZIP file, **extract it completely** before installing.
+3. Open Google Chrome and navigate to:
+   ```
+   chrome://extensions/
+   ```
+4. Enable **Developer Mode** (top-right corner).
+5. Click **Load unpacked**.
+6. Select the extracted **Mindful Pause** project folder.
+7. The extension will be installed and is ready to use.
+
+> **Important:** Do **not** select the ZIP file directly. Always extract the ZIP first and then choose the extracted folder while using **Load unpacked**.
+
+---
+
+## 💻 Compatibility
+
+| Platform | Status |
+|----------|--------|
+| Windows (Google Chrome) | ✅ Tested |
+| macOS (Google Chrome) | ⏳ Testing in Progress |
+
+---
+
+## 📝 Notes
+
+- The extension is designed for Chromium-based browsers.
+- If the extension doesn't load, ensure that:
+  - The project folder has been extracted completely.
+  - You selected the extracted folder instead of the ZIP file.
+  - Developer Mode is enabled in Chrome Extensions.
+
+During testing, the extension loaded successfully after extracting the project folder and selecting the extracted folder using **Load unpacked**.
