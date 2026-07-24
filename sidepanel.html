@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mindful Pause</title>
+  <link rel="stylesheet" href="sidepanel.css" />
+</head>
+<body>
+  <div class="app-container">
+    <!-- Header -->
+    <header class="app-header">
+      <div class="brand">
+        <div class="logo-icon">🌿</div>
+        <div class="brand-text">
+          <h1>Mindful Pause</h1>
+          <span class="sub-title">Mood & Grounding Assistant</span>
+        </div>
+      </div>
+      <div class="header-actions">
+        <div class="streak-badge" id="streakBadge" title="Daily Mindful Streak">
+          <span class="streak-fire">🔥</span>
+          <span id="streakCount">0</span>
+          <span class="streak-unit">days</span>
+        </div>
+        <button id="themeToggle" class="icon-btn" aria-label="Toggle Theme">
+          <span id="themeIcon">🌙</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- Navigation Tabs -->
+    <nav class="nav-tabs" role="tablist">
+      <button class="tab-btn active" data-tab="mood" role="tab" aria-selected="true">
+        <span class="tab-icon">🎭</span>
+        <span class="tab-label">Mood</span>
+      </button>
+      <button class="tab-btn" data-tab="breathing" role="tab" aria-selected="false">
+        <span class="tab-icon">🫁</span>
+        <span class="tab-label">Breathe</span>
+      </button>
+      <button class="tab-btn" data-tab="grounding" role="tab" aria-selected="false">
+        <span class="tab-icon">🌱</span>
+        <span class="tab-label">Grounding</span>
+      </button>
+      <button class="tab-btn" data-tab="stats" role="tab" aria-selected="false">
+        <span class="tab-icon">📊</span>
+        <span class="tab-label">Stats</span>
+      </button>
+    </nav>
+
+    <!-- Main Content Panels -->
+    <main class="content-area">
+
+      <!-- Mood Check-in Panel -->
+      <section id="panel-mood" class="tab-panel active" role="tabpanel">
+        <div class="glass-card section-intro">
+          <h2>How are you feeling right now?</h2>
+          <p class="text-muted">Take a quiet moment to acknowledge your state without judgment.</p>
+        </div>
+
+        <div class="mood-grid">
+          <button class="mood-card" data-mood="happy" data-color="happy">
+            <span class="mood-emoji">✨</span>
+            <span class="mood-name">Happy</span>
+          </button>
+          <button class="mood-card" data-mood="calm" data-color="calm">
+            <span class="mood-emoji">🌊</span>
+            <span class="mood-name">Calm</span>
+          </button>
+          <button class="mood-card" data-mood="stressed" data-color="stressed">
+            <span class="mood-emoji">⚡</span>
+            <span class="mood-name">Stressed</span>
+          </button>
+          <button class="mood-card" data-mood="anxious" data-color="anxious">
+            <span class="mood-emoji">🌀</span>
+            <span class="mood-name">Anxious</span>
+          </button>
+          <button class="mood-card" data-mood="tired" data-color="tired">
+            <span class="mood-emoji">🌙</span>
+            <span class="mood-name">Tired</span>
+          </button>
+          <button class="mood-card" data-mood="sad" data-color="sad">
+            <span class="mood-emoji">🌧️</span>
+            <span class="mood-name">Sad</span>
+          </button>
+        </div>
+
+        <!-- Dynamic Mood Result Card -->
+        <div id="moodResult" class="glass-card mood-result hidden">
+          <div class="mood-result-header">
+            <span id="selectedMoodEmoji" class="large-emoji"></span>
+            <div>
+              <h3 id="selectedMoodTitle">Selected Mood</h3>
+              <span id="moodTimestamp" class="timestamp">Just now</span>
+            </div>
+          </div>
+          <p id="moodAffirmation" class="affirmation-text"></p>
+          <div class="recommendation-box">
+            <span class="rec-icon">💡</span>
+            <span id="moodRecommendation"></span>
+          </div>
+          <button id="suggestedActionBtn" class="btn btn-secondary full-width margin-top">
+            Try Recommended Exercise
+          </button>
+        </div>
+      </section>
+
+      <!-- Box Breathing Panel -->
+      <section id="panel-breathing" class="tab-panel" role="tabpanel">
+        <div class="glass-card section-intro text-center">
+          <h2>4-4-4-4 Box Breathing</h2>
+          <p class="text-muted">Inhale 4s • Hold 4s • Exhale 4s • Hold 4s</p>
+        </div>
+
+        <div class="breathing-stage">
+          <!-- Animated Breathing Circle -->
+          <div class="circle-container">
+            <div class="outer-glow" id="breathingGlow"></div>
+            <div class="breathing-circle" id="breathingCircle">
+              <div class="circle-content">
+                <span id="breathPhaseText" class="phase-label">Ready</span>
+                <span id="breathTimerText" class="timer-display">4</span>
+                <span id="breathSubtext" class="sub-label">Tap Start to begin</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Cycle Progress Bar -->
+          <div class="cycle-tracker">
+            <span>Completed Cycles: <strong id="cycleCount">0</strong> / <span id="targetCycles">4</span></span>
+            <div class="progress-bar-bg">
+              <div class="progress-bar-fill" id="cycleProgressBar"></div>
+            </div>
+          </div>
+
+          <!-- Controls -->
+          <div class="breathing-controls">
+            <button id="startBreathBtn" class="btn btn-primary">Start</button>
+            <button id="pauseBreathBtn" class="btn btn-secondary" disabled>Pause</button>
+            <button id="resetBreathBtn" class="btn btn-outline">Reset</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Grounding Panel -->
+      <section id="panel-grounding" class="tab-panel" role="tabpanel">
+        <div class="glass-card section-intro">
+          <h2>5-4-3-2-1 Sensory Grounding</h2>
+          <p class="text-muted">Connect with your present environment to soothe anxiety and reset.</p>
+        </div>
+
+        <!-- Grounding Step Cards -->
+        <div class="grounding-accordion">
+          <!-- Step 5: See -->
+          <div class="grounding-step glass-card" data-step="5">
+            <div class="step-header">
+              <span class="step-number">5</span>
+              <span class="step-icon">👁️</span>
+              <span class="step-title">Things you can SEE</span>
+              <input type="checkbox" class="step-check" id="check-5" />
+            </div>
+            <div class="step-body">
+              <p class="step-desc">Look around you. Notice 5 objects, shapes, colors, or light patterns.</p>
+              <input type="text" class="input-field" placeholder="e.g. Lamp, window frame, blue cup..." />
+            </div>
+          </div>
+
+          <!-- Step 4: Touch -->
+          <div class="grounding-step glass-card" data-step="4">
+            <div class="step-header">
+              <span class="step-number">4</span>
+              <span class="step-icon">✋</span>
+              <span class="step-title">Things you can TOUCH</span>
+              <input type="checkbox" class="step-check" id="check-4" />
+            </div>
+            <div class="step-body">
+              <p class="step-desc">Feel textures around you—your desk, fabric, feet on the floor.</p>
+              <input type="text" class="input-field" placeholder="e.g. Smooth desk surface, warm sweater..." />
+            </div>
+          </div>
+
+          <!-- Step 3: Hear -->
+          <div class="grounding-step glass-card" data-step="3">
+            <div class="step-header">
+              <span class="step-number">3</span>
+              <span class="step-icon">👂</span>
+              <span class="step-title">Things you can HEAR</span>
+              <input type="checkbox" class="step-check" id="check-3" />
+            </div>
+            <div class="step-body">
+              <p class="step-desc">Listen carefully. What background sounds are in your environment?</p>
+              <input type="text" class="input-field" placeholder="e.g. Clock ticking, computer fan, birds..." />
+            </div>
+          </div>
+
+          <!-- Step 2: Smell -->
+          <div class="grounding-step glass-card" data-step="2">
+            <div class="step-header">
+              <span class="step-number">2</span>
+              <span class="step-icon">👃</span>
+              <span class="step-title">Things you can SMELL</span>
+              <input type="checkbox" class="step-check" id="check-2" />
+            </div>
+            <div class="step-body">
+              <p class="step-desc">Notice scents in the room, air quality, or smell your clothes/hands.</p>
+              <input type="text" class="input-field" placeholder="e.g. Fresh air, coffee aroma, subtle soap..." />
+            </div>
+          </div>
+
+          <!-- Step 1: Taste -->
+          <div class="grounding-step glass-card" data-step="1">
+            <div class="step-header">
+              <span class="step-number">1</span>
+              <span class="step-icon">👅</span>
+              <span class="step-title">Thing you can TASTE</span>
+              <input type="checkbox" class="step-check" id="check-1" />
+            </div>
+            <div class="step-body">
+              <p class="step-desc">Focus on the current taste in your mouth or sip a drink of water.</p>
+              <input type="text" class="input-field" placeholder="e.g. Hint of mint tea, cool water..." />
+            </div>
+          </div>
+        </div>
+
+        <!-- Quick Relaxation Prompt Card -->
+        <div class="glass-card relax-card">
+          <div class="relax-header">
+            <span>✨ Physical Relaxation Check</span>
+            <button id="nextRelaxPromptBtn" class="icon-btn-small" title="New Prompt">🔄</button>
+          </div>
+          <p id="relaxPromptText" class="relax-prompt">Drop your shoulders away from your ears and unclench your jaw.</p>
+        </div>
+
+        <!-- Complete Session Button -->
+        <button id="completeGroundingBtn" class="btn btn-primary full-width margin-top">
+          🎉 Complete Grounding Session
+        </button>
+      </section>
+
+      <!-- Stats & Insights Panel -->
+      <section id="panel-stats" class="tab-panel" role="tabpanel">
+        <div class="glass-card section-intro text-center">
+          <h2>Your Mindfulness Journey</h2>
+          <p class="text-muted">Track your daily streak and mindful check-in habits.</p>
+        </div>
+
+        <!-- Streak Stats Grid -->
+        <div class="stats-grid">
+          <div class="stat-card glass-card">
+            <span class="stat-icon">🔥</span>
+            <span class="stat-value" id="statsCurrentStreak">0</span>
+            <span class="stat-label">Current Streak</span>
+          </div>
+          <div class="stat-card glass-card">
+            <span class="stat-icon">🏆</span>
+            <span class="stat-value" id="statsBestStreak">0</span>
+            <span class="stat-label">Best Streak</span>
+          </div>
+          <div class="stat-card glass-card">
+            <span class="stat-icon">🧘</span>
+            <span class="stat-value" id="statsTotalBreathing">0</span>
+            <span class="stat-label">Breathing Sessions</span>
+          </div>
+          <div class="stat-card glass-card">
+            <span class="stat-icon">🌿</span>
+            <span class="stat-value" id="statsTotalGrounding">0</span>
+            <span class="stat-label">Grounding Exercises</span>
+          </div>
+        </div>
+
+        <!-- Recent Activity Log -->
+        <div class="glass-card margin-top">
+          <h3>Recent Mood History</h3>
+          <ul id="moodHistoryList" class="history-list">
+            <li class="empty-log">No mood check-ins recorded yet today.</li>
+          </ul>
+        </div>
+
+        <!-- Reset Button -->
+        <div class="margin-top text-center">
+          <button id="resetDataBtn" class="btn btn-text-danger">Reset All Progress Data</button>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <script src="sidepanel.js"></script>
+</body>
+</html>

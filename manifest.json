@@ -1,0 +1,29 @@
+{
+  "manifest_version": 3,
+  "name": "Mindful Pause – Mood & Grounding Assistant",
+  "version": "1.0.0",
+  "description": "A mindful companion for mood tracking, 4-4-4-4 box breathing exercises, 5-4-3-2-1 grounding techniques, and daily wellness streaks.",
+  "permissions": [
+    "sidePanel",
+    "storage"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "side_panel": {
+    "default_path": "sidepanel.html"
+  },
+  "action": {
+    "default_title": "Open Mindful Pause",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    }
+  },
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  }
+}
